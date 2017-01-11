@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="138.68.86.130">
+  <component name="PublishConfigData" autoUpload="Always" serverName="138.68.68.130">
     <serverData>
-      <paths name="138.68.86.130">
+      <paths name="138.68.68.130">
         <serverdata>
           <mappings>
             <mapping deploy="/php" local="$PROJECT_DIR$" web="/php" />
