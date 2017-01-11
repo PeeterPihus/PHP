@@ -10,7 +10,7 @@
 require_once('text.php');
 //create and object
 $sentence = new text();
-//control object output
+//control  object output
 echo'<pre>';
 print_r($sentence);
 echo'</pre>';
