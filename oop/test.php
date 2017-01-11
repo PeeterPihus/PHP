@@ -22,4 +22,10 @@ print_r($sentence);
 echo'</pre>';
 //show object output
 $sentence->show();
+//create an object
+$sentence2 = new text('Hello text by contructor!');
+echo'<pre>';
+print_r($sentence2);
+echo'</pre>';
+$sentence2->show();
 ?>
