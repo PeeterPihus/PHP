@@ -12,10 +12,9 @@ class text
 
     //methods
     //set text function
-    function setText($s) {
-        $this->str = $s
+    function setText($s){
+        $this->str = $s;
     }//setText
-
     //show text function
     function show(){
         echo $this->str.'</br>';
