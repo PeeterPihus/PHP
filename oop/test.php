@@ -30,6 +30,7 @@ print_r($sentence2);
 echo'</pre>';
 $sentence3->show();
 $sentence3 = new ctext('Hello color text!');
+//set object color
 echo'<pre>';
 print_r($sentence3);
 echo'</pre>';
