@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: anna.karutina
+ * User: Peeter
  * Date: 12.01.2017
  * Time: 12:27
  */
@@ -15,7 +15,13 @@ class template
     // class variables
     var $file = ''; // template file name
     var $content = false; // template content - now is empty
+    var $vars = array(); //table for real values of html template output
     // class methods
+    // construct
+    function __construct($f){
+        $this->file = $f;
+        $this->loadFile();
+    }// construct
     function loadFile(){
         $f = $this->file; // use file name variable
         // if some problem with tmpl directory
@@ -42,7 +48,14 @@ class template
             exit;
         }
     }// loadFile
+
     function readFile($f){
         $this->content = file_get_contents($f);
     }// readFile
+
+    //set up html tempalte element and their real values
+    //$name - template element, $val - real value
+    function set($name, $val){
+        $this->vars[$name] = $val
+    }//set
 }// class end
