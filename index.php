@@ -23,4 +23,6 @@ $tmpl->set('content', 'minu sisu');
 echo '<pre>';
 print_r($tmpl);
 echo '</pre>';
+// output template content set up with real values
+echo $tmpl->parse();
 ?>
