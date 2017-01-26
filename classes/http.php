@@ -6,49 +6,60 @@
  * Date: 17.01.2017
  * Time: 12:48
  */
+// useful function
 function fixHtml($val){
     return htmlentities($val);
-}
+}// fixHtml
 class http
-{// http begin
+{// http class begin
     // class variables
-    var $server = array();// server data
-    var $vars = array();// http data
-    var $cookie = array();// cookie data
+    var $server = array(); // server data
+    var $vars = array(); // http data
+    var $cookie = array(); // cookie data
     // class methods
-    // construct
-    // object creation and initializing by init() and initConst() methods
+    // class construct for object initializing
     function __construct(){
-        $this->init();
-        $this->initConst();
-    }// __construct
-    // initialize class variables
+        $this->init(); // initialize variables with real data
+        $this->initConst(); // initialize constants by real data values
+    }// construct
+    // initialize class variables and set up real data
     function init(){
         $this->server = $_SERVER; // server real data
         $this->cookie = $_COOKIE; // cookie real data
         $this->vars = array_merge($_GET, $_POST, $_FILES); // http real data
     }// init
-    // initialize class constants
+    // initialize some server constants
     function initConst(){
+        // define array with some server element names
         $vars = array('REMOTE_ADDR', 'PHP_SELF', 'SCRIPT_NAME', 'HTTP_HOST');
-        foreach($vars as $var){
+        // controll is constant defined for each constant name
+        foreach ($vars as $var){
             if(!defined($var) and isset($this->server[$var])){
                 define($var, $this->server[$var]);
             }
-        }
+        }// foreach
     }// initConst
-    // set up data for http object - pairs element_name => element value
+    // set up $this->vars array elements: element_name => element_value
+    // $name - element name, for example user
+    // $val - element value, for example test
+    // $this->vars['user'] = 'test'
     function set($name, $val){
         $this->vars[$name] = $val;
     }// set
-    // get element_value according to the element_name
+    // get value pairs from url ($this->vars)
     function get($name, $fix = false){
-        if (isset($this->vars[$name])){
-            if ($fix){
+        if(isset($this->vars[$name])){
+            if($fix){
                 return fixHtml($this->vars[$name]);
             }
             return $this->vars[$name];
         }
         return false;
-    }//get
+    }// get
+    // unset and delete http data
+    function del($name){
+        if(isset($this->vars[$name])){
+            unset($this->vars[$name]);
+        }
+    }// del
 }// http end

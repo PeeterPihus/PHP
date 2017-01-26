@@ -5,13 +5,11 @@
  * Date: 12.01.2017
  * Time: 12:58
  */
+// import configuration
+require_once 'conf.php';
+// import act description
+require_once 'act.php';
 // create and template object
-define('CLASSES_DIR', 'classes/');
-define('TMPL_DIR', 'tmpl/');
-define('STYLE_DIR', 'css/');
-define('ACTS:DIR', 'acts/');
-define('DEFAULT_ACT', 'default');
-require_once CLASSES_DIR.'template.php';
 // and use it
 // create an template object,
 // set up the file name for template
@@ -20,45 +18,28 @@ $tmpl = new template('main');
 // add pairs of temlate element names and real values
 $tmpl->set('style', STYLE_DIR.'main'.'.css');
 $tmpl->set('header', 'minu lehe pealkiri');
-// import http class
-require_once CLASSES_DIR.'http.php';
-// import linkobject class
-require_once CLASSES_DIR.'linkobject.php';
-// create and output http object from linkobject class
-$http = new linkobject();
-// create and output menu
+// menu testing
 // import menu file
-require_once 'menu.php'; // in this file is menu creation
-$tmpl->set('menu', $menu->parse());
+require_once 'menu.php';
+// end of menu
 $tmpl->set('nav_bar', 'minu navigatsioon');
 $tmpl->set('lang_bar', 'minu keeleriba');
-$tmpl->set('content', 'minu sisu');
-/*
-// control the content of template object
-echo '<pre>';
-print_r($tmpl);
-echo '</pre>';
-*/
+//$tmpl->set('content', 'minu sisu');
+// allow to use default act
+$tmpl->set('content', $http->get('content'));
 // output template content set up with real values
 echo $tmpl->parse();
-// control http object output
-/*echo '<pre>';
-print_r($http);
-echo '</pre>';*/
-// control http constants
-echo REMOTE_ADDR.'<br />';
-echo PHP_SELF.'<br />';
-echo SCRIPT_NAME.'<br />';
-echo HTTP_HOST.'<br />';
-echo '<hr />';
-// create http data pairs and set up into $http->vars array
-$http->set('kasutaja', 'Anna');
-$http->set('tund', 'php programmeerimisvahendid');
-// control $http->vars object output
-/*echo '<pre>';
-print_r($http->vars);
-echo '</pre>';*/
-// control link creation
-$link = $http->getLink(array('kasutaja'=>'anna', 'parool'=>'qwerty'));
-//echo $link.'<br />';
+// database object test output
+$sql = 'SELECT NOW()';
+$res = $db->getArray($sql);
+$sql = 'SELECT NOW()';
+$res = $db->getArray($sql);
+$sql = 'SELECT NOW()';
+$res = $db->getArray($sql);
+// control query log output
+$db->showHistory();
+// control session output
+echo '<pre>';
+print_r($sess);
+echo '</pre>';
 ?>
