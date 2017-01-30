@@ -7,10 +7,6 @@
  */
 // import configuration
 require_once 'conf.php';
-// import act description
-require_once 'act.php';
-// create and template object
-// and use it
 // create an template object,
 // set up the file name for template
 // load template file content
@@ -18,27 +14,34 @@ $tmpl = new template('main');
 // add pairs of temlate element names and real values
 $tmpl->set('style', STYLE_DIR.'main'.'.css');
 $tmpl->set('header', 'minu lehe pealkiri');
-// menu testing
+// create and output menu
 // import menu file
-require_once 'menu.php';
-// end of menu
+require_once 'menu.php'; // in this file is menu creation
+$tmpl->set('menu', $menu->parse());
 $tmpl->set('nav_bar', 'minu navigatsioon');
 $tmpl->set('lang_bar', 'minu keeleriba');
-//$tmpl->set('content', 'minu sisu');
-// allow to use default act
-$tmpl->set('content', $http->get('content'));
+$tmpl->set('content', 'minu sisu');
 // output template content set up with real values
 echo $tmpl->parse();
-// database object test output
-$sql = 'SELECT NOW()';
+// control actions
+// import act file
+require_once 'act.php';
+// control database object
+// create test query
+$sql = 'SELECT NOW();';
 $res = $db->getArray($sql);
-$sql = 'SELECT NOW()';
+$sql = 'SELECT NOW();';
 $res = $db->getArray($sql);
-$sql = 'SELECT NOW()';
+$sql = 'SELECT NOW();';
 $res = $db->getArray($sql);
-// control query log output
+// control database query result
+echo '<pre>';
+print_r($res);
+echo '</pre>';
+// query time control
 $db->showHistory();
 // control session output
+$sess->flush();
 echo '<pre>';
 print_r($sess);
 echo '</pre>';
