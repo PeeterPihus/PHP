@@ -11,13 +11,13 @@ define('TMPL_DIR', 'tmpl/');
 define('STYLE_DIR', 'css/');
 define('ACTS_DIR', 'acts/'); // default act directory
 define('LIB_DIR', 'lib/'); // useful functions directory
+define('LANG_DIR', 'lang/');
+require_once LIB_DIR.'utils.php';
 define('DEFAULT_ACT', 'default'); // default act file name
 define('ROLE_NONE', 0);
 define('ROLE_ADMIN', 1);
 define('ROLE_USER', 2);
-// import useful files
-require_once LIB_DIR.'utils.php';
-// import classes
+define('DEFAULT_LANG', 'et');
 require_once CLASSES_DIR.'template.php'; // import template class file
 require_once CLASSES_DIR.'http.php'; // import http class file
 require_once CLASSES_DIR.'linkobject.php'; // import linkobject file
@@ -32,5 +32,17 @@ $http = new linkobject();
 $db = new mysql(DBHOST, DBUSER, DBPASS, DBNAME);
 // create session class object
 $sess = new session($http, $db);
+$siteLangs = array(
+    'et' =>'estonian',
+    'en' =>'english',
+    'ru' =>'russian',
+);
+$lang_id = $http->get('lang_id');
+if(!isset($siteLangs[$lang_id])){
+    $lang_id = DEFAULT_LANG;
+    $http->set('lang_id', $lang_id);
+}
+define('LANG_ID', $lang_id);
+require_once LIB_DIR.'trans.php';
 
 ?>
