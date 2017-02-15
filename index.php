@@ -7,36 +7,61 @@
  */
 // import configuration
 require_once 'conf.php';
-// create an template object,
-// set up the file name for template
-// load template file content
+// create an empty template object
 $tmpl = new template('main');
-require_once(BASE_DIR.'lang.php');
-$tmpl->set('style', STYLE_DIR.'main'.'css');
+// require language control
+require_once 'lang.php';
+//add pair of template element names and real values
+$tmpl->set('style', STYLE_DIR.'style.css');
 $tmpl->set('header', 'minu lehe pealkiri');
+// create and output menu
+//  import menu file
 require_once 'menu.php';
 $tmpl->set('menu', $menu->parse());
-require_once 'act.php';
-$tmpl->('nav_bar', $sess->user_uata['username']);
-$tmpl->set('lang_bar', LANG_ID);
-//$tmpl->set('content', 'minu sisu');
-// output template content set up with real values
-echo $tmpl->parse();
+//$tmpl->set('nav_bar', 'minu navigatsioon');
 // control actions
-
+// import act
+require_once 'act.php';
+// allow to use user data
+$tmpl->set('nav_bar', $sess->user_data['username']);
+//$tmpl->set('lang_bar', LANG_ID);
+//$tmpl->set('lang_bar', 'minu keeleriba');
+// $tmpl->set('content', 'minu sisu');
+// allow to use default act
+//$tmpl->set('content', $http->get('content'));
+echo $tmpl->parse();
+// control http constants
+echo REMOTE_ADDR.'<br />';
+echo PHP_SELF.'<br />';
+echo SCRIPT_NAME.'<br />';
+echo HTTP_HOST.'<br />';
+echo '<hr />';
+// create http data pairs and set up into $http->vars array
+$http->set('kasutaja', 'Carmen');
+$http->set('tund', 'php programmeerimisvahendid');
+// control $http->vars output
+/*echo '<pre>';
+print_r($http->vars);
+echo '<pre>';*/
+// control link creation
+$link = $http->getLink(array('kasutaja'=>'Carmen', 'parool'=>'qwerty'));
+// echo $link.'<br />';
 // control database object
 // create test query
-$sql = 'SELECT NOW();';
+$sql = 'select now();';
 $res = $db->getArray($sql);
-$sql = 'SELECT NOW();';
+$sql = 'select now();';
 $res = $db->getArray($sql);
-$sql = 'SELECT NOW();';
-$res = $db->getArray($sql);
-// control database query result
+// control database query
+echo '<pre>';
+print_r($res);
+echo '<pre>';
+// session update on the main page
 $sess->flush();
 // query time control
 $db->showHistory();
 // control session output
-$sess->flush();
+echo '<pre>';
 print_r($sess);
+echo '<pre>';
 ?>

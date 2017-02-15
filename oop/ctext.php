@@ -6,25 +6,26 @@
  * Date: 11.01.2017
  * Time: 15:14
  */
-//allow to use text class in ctext class
+// allows to use text class in ctext class
 require_once('text.php');
 class ctext extends text
-{//ctext begin
-    //class variable
+{ // ctext begins
+    // class variables
     var $color = false;
-    //methods
-    //set color
+    // methods
+    // set color
     function setColor($c) {
         $this->color = $c;
-    }//setcolor
-    //show color text
+    } // setColor
+    // show color text - overrided text class function
     function show()
     {
-        if($this->color === false){
-            parent::show();//use text class show fucntion
-        }else {
-            echo'<font color="'.$this->color.'">'.$this->str.'</font></br> 
+        if($this->color === false) {
+            parent::show(); // use text class show function
         }
-    }// show
-}//ctext end
+        else {
+            echo '<font color="'.$this->color.'">'.$this->str.'</font><br/>';
+        }
+    }
+} // ctext ends
 ?>

@@ -6,22 +6,21 @@
  * Time: 14:22
  */
 class text
-{//text class begin
-    //class variables =instance variables
+{// text class begin
+    // class variables = instance variables
     var $str = '';
-    //constructor
+    // constructor
     function __construct($s = ''){
         $this->setText($s);
-    }//construct
-
-    //methods
-    //set text function
+    } // construct
+    // methods
+    // set text function
     function setText($s){
         $this->str = $s;
-    }//setText
-    //show text function
+    }// setText
+    // show text function
     function show(){
-        echo $this->str.'</br>';
-    }
-}//text class end
+        echo $this->str.'<br/>';
+    }// show
+}// text class end
 ?>

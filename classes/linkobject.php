@@ -6,62 +6,71 @@
  * Date: 18.01.2017
  * Time: 8:48
  */
-// useful function
-function fixUrl($val){
-    return urlencode($val);
-}
-// import http class file
+// useful class for this class
+// useful function for this class
+function fixUrl($val) {
+    return urldecode($val);
+} // fixUrl
+// only for testing
+// import http class
 require_once 'http.php';
+// only for testing
 class linkobject extends http
-{// class begin
+{ // class begin
     // class variables
-    var $baseUrl = false; // base url value
-    var $protocol = 'http://'; // protocol for url
-    var $delim = '&amp;'; // & html tag
-    var $eq = '='; // equal sign
+    var $baseUrl = false; // base URL
+    var $protocol = 'http://'; // protocol for URL - http
+    var $delim = '&amp;'; // & html tag name1=value1&name2=value2
+    var $eq = '='; // = for URL element pair element_name = element_value
     // add if exists
-    var $aie = array('lang_id', 'sid'=>'sid');
-    // class methods
+    var $aie = array('lang_id','sid'=>'sid');
+    // class methods to help to make the url link
     // construct
-    function __construct(){
-        parent::__construct(); // import http class construct
+    // create base URL: http//XXX.XXX.XXX.XXX/path_to_file.php
+    function __construct() {
+        parent::__construct();
         $this->baseUrl = $this->protocol.HTTP_HOST.SCRIPT_NAME;
-    }// construct
+    } // construct
     // create http data pairs and merge them
-    // pair is element_name=element_value, for example user=admin
-    // name1=value1&name2=value2
-    // for merging use &$link
-    function addToLink(&$link, $name, $val){
-        // if pair is already created
-        if($link != ''){
-            // name=value&
-            $link = $link.$this->delim;
+    // merge is realized by &$link
+    function addToLink(&$link, $name, $val) {
+        // if link is not empty - pair is created
+        if($link !='') {
+            $link .= $this->delim; // $link .= $this->delim;
         }
-        $link = $link.fixUrl($name).$this->eq.fixUrl($val); // name=value
-    }// addToLink
-    // create url -> baseUrl + data pairs
-    function getLink($add = array(), $aie = array(), $not = array()){
+        // create pair: element_name = element_value
+        $link = $link.fixUrl($name).$this->eq.fixUrl($val);
+    }// addTo link
+    // merge baseUrl an dlink with  data pairs
+    /**
+     * @param array $add
+     * @return bool|string
+     */
+    function getLink($add = array(), $aie = array(), $not = array()) {
         $link = '';
-        foreach ($add as $name => $val){
+        foreach ($add as $name => $val) {
             $this->addToLink($link, $name, $val);
         }
         foreach ($aie as $name){
             $val = $this->get($name);
-            if($val !== false){
+            if ($val !== false){
                 $this->addToLink($link, $name, $val);
             }
         }
         foreach ($this->aie as $name){
             $val = $this->get($name);
-            if($val !== false and !in_array($name, $not)){
+            if ($val !== false and !in_array($name, $not)){
                 $this->addToLink($link, $name, $val);
             }
         }
-        if($link != ''){
-            $link = $this->baseUrl.'?'.$link;
-        } else {
+        // control if link is not empty
+        if($link !='') {
+            $link = $this->baseUrl.'?'.$link; // http://IP/path_to_script.php?name=value
+        }
+        else {
             $link = $this->baseUrl;
         }
-        return $link;
-    }// getLink
-}// class end
+        return $link; // return created link to base program
+    } // getLink
+} // class end
+?>
