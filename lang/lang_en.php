@@ -6,9 +6,9 @@
  * Time: 9:32
  */
 $_trans = array(
-    'Esimene leht' => 'First',
-    'Teine leht' => 'Second',
-    'Minu lehe pealkiri' => 'My page heading',
+    'Esimene' => 'First',
+    'Teine' => 'Second',
+    'minu lehe pealkiri' => 'My page heading',
     'Logi v&auml;ja' => 'Logout',
     'Kasutajanimi' => 'Username',
     'Parool' => 'Password',
